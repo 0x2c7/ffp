@@ -1,6 +1,7 @@
 class TimelinesController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update, :create_post]
-  before_action :check_same_user, only: [:edit, :update, :create_post]
+  before_action :find_user, only: [:show, :edit, :update, :create_post, :add_friend, :delete_friend]
+  before_action :check_owner, only: [:edit, :update, :create_post]
+  before_action :check_not_owner, only: [:add_friend, :delete_friend]
   before_action :new_post, only: [:show, :create_post]
 
   def index
@@ -10,6 +11,7 @@ class TimelinesController < ApplicationController
 
   def show
     @posts = @user.posts.order(created_at: :desc)
+    @friendship = Friendship.find_by(user_id: current_user.id, friend_id: @user.id)
   end
 
   def edit
@@ -36,6 +38,18 @@ class TimelinesController < ApplicationController
     end
   end
 
+  def add_friend
+    @user.friends << current_user
+    current_user.friends << @user
+    redirect_to timeline_path(@user)
+  end
+
+  def delete_friend
+    Friendship.where(user_id: current_user.id, friend_id: @user.id).destroy_all
+    Friendship.where(friend_id: current_user.id, user_id: @user.id).destroy_all
+    redirect_to timeline_path(@user)
+  end
+
   private
 
   def find_user
@@ -45,8 +59,14 @@ class TimelinesController < ApplicationController
     end
   end
 
-  def check_same_user
+  def check_owner
     if @user.id != current_user.id
+      redirect_to root_path, alert: "You can not do this action"
+    end
+  end
+
+  def check_not_owner
+    if @user.id == current_user.id
       redirect_to root_path, alert: "You can not do this action"
     end
   end

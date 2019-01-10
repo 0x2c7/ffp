@@ -19,6 +19,14 @@
       <%= render "posts/form", post: @post, user: @user %>
     </div>
   </div>
+<% elsif @friendship.present? %>
+  <div class="unfriend text-center" style="margin: 15px 0px;">
+    You are friends for <%= time_ago_in_words(@friendship.created_at) %> - <%= link_to 'Unfriend', delete_friend_timeline_path(@user), method: :delete, style: "color: red; opacity: 0.5;" %>
+  </div>
+<% else %>
+  <div class="add_friend text-center" style="margin: 15px 0px;">
+    <%= link_to 'Add friend', add_friend_timeline_path(@user), method: :put, class: 'btn btn-info', style: "color: #fff;" %>
+  </div>
 <% end %>
 
 <div class="container" style="margin-top: 15px;">

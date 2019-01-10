@@ -51,3 +51,7 @@ users.each do |user|
     post.update(created_at: Time.now - rand(1..365).days)
   end
 end
+
+Friendship.all.each do |f|
+  f.update(created_at: Time.now - rand(1..365).days)
+end
