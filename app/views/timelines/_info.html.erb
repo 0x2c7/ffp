@@ -10,15 +10,17 @@
   <a class="font-weight-light" style="font-size: 25px; color: #333;" href="<%= timeline_path(@user) %>"><%= @user.email %></a>
 </div>
 
-<% if current_user.id == @user.id && @post.present? %>
+<% if current_user.id == @user.id %>
   <div class="new_post text-center" style="margin: 15px 0px;">
     <%= link_to "#{@user.friends.count} friends", friends_timeline_path(@user), class: 'btn btn-outline-info' %>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewPost" aria-expanded="false" aria-controls="collapseNewPost">
-      Write a new post
-    </button>
-    <div class="collapse <%= @post.errors.any? ? "show" : ""%>" id="collapseNewPost">
-      <%= render "posts/form", post: @post, user: @user %>
-    </div>
+    <% if @post.present? %>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewPost" aria-expanded="false" aria-controls="collapseNewPost">
+        Write a new post
+      </button>
+      <div class="collapse <%= @post.errors.any? ? "show" : ""%>" id="collapseNewPost">
+        <%= render "posts/form", post: @post, user: @user %>
+      </div>
+    <% end %>
   </div>
 <% elsif @friendship.present? %>
   <div class="friends text-center" style="margin: 15px 0px;">
