@@ -30,11 +30,11 @@
           <% if user_signed_in? %>
             <div class="dropdown">
               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img style="height: 32px; width: 32px; background-color: #fafafa; border-radius: 100%;" src="<%= current_user.avatar.attached? ? url_for(current_user.avatar) : "" %>"/>
                 <%= current_user.email %>
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="<%= root_path %>">Home</a>
                 <a class="dropdown-item" href="<%= timeline_path(current_user) %>">Personal page</a>
                 <div class="dropdown-divider"></div>
                 <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
@@ -51,17 +51,15 @@
         </div>
       </div>
     </nav>
-    <div class="container">
-      <% if alert %>
-        <div class="alert alert-warning text-center alert-dismissible fade show" role="alert" style="margin-top: 15px;">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            <%= alert %>
-          </div>
-        </div>
-      <% end %>
-      <%= yield %>
-    </div>
+    <% if alert %>
+      <div class="alert alert-warning text-center alert-dismissible fade show" role="alert" style="margin-top: 15px;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= alert %>
+      </div>
+      </div>
+    <% end %>
+    <%= yield %>
   </body
 </html>

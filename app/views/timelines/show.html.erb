@@ -1,0 +1,9 @@
+<div class="images" style="height: 400px; background-color: #f1f1f1; position: relative; <%= @user.cover.attached? ? "background: url(#{url_for(@user.cover)}) no-repeat center center fixed; background-size: cover;" : ""%>">
+  <div class="avatar text-center" style="position: absolute; bottom: -64px; left: 0px; height: 128px; width: 100%;">
+    <img style="height: 128px; width: 128px; background-color: #fafafa; border: 1px #aaa solid; border-radius: 100%;" src="<%= @user.avatar.attached? ? url_for(@user.avatar) : "" %>"/>
+  </div>
+  <a class="btn btn-outline-info" style="position: absolute; bottom: 15px; right: 15px;" href="<%= edit_timeline_path(@user) %>">Update avatar and cover</a>
+</div>
+<div class="info text-center" style="margin-top: 80px">
+  <h4 class="name font-weight-light"><%= @user.email %></h4>
+</div>
