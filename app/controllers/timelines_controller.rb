@@ -1,7 +1,8 @@
 class TimelinesController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update, :create_post, :add_friend, :delete_friend]
+  before_action :find_user, only: [:show, :edit, :update, :create_post, :add_friend, :delete_friend, :friends]
   before_action :check_owner, only: [:edit, :update, :create_post]
   before_action :check_not_owner, only: [:add_friend, :delete_friend]
+  before_action :find_friendship, only: [:show, :friends]
   before_action :new_post, only: [:show, :create_post]
 
   def index
@@ -11,7 +12,6 @@ class TimelinesController < ApplicationController
 
   def show
     @posts = @user.posts.order(created_at: :desc)
-    @friendship = Friendship.find_by(user_id: current_user.id, friend_id: @user.id)
   end
 
   def edit
@@ -50,6 +50,10 @@ class TimelinesController < ApplicationController
     redirect_to timeline_path(@user)
   end
 
+  def friends
+    @friends = @user.friends
+  end
+
   private
 
   def find_user
@@ -73,5 +77,9 @@ class TimelinesController < ApplicationController
 
   def new_post
     @post = @user.posts.new
+  end
+
+  def find_friendship
+    @friendship = Friendship.find_by(user_id: current_user.id, friend_id: @user.id)
   end
 end

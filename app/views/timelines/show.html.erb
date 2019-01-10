@@ -1,34 +1,4 @@
-<div class="images" style="height: 400px; background-color: #f1f1f1; position: relative; <%= @user.cover.attached? ? "background: url(#{url_for(@user.cover)}) no-repeat center center fixed; background-size: cover;" : ""%>">
-  <div class="avatar text-center" style="position: absolute; bottom: -64px; left: 0px; height: 128px; width: 100%;">
-    <img style="height: 128px; width: 128px; background-color: #fafafa; border: 1px #aaa solid; border-radius: 100%;" src="<%= @user.avatar.attached? ? url_for(@user.avatar) : "" %>"/>
-  </div>
-  <% if current_user.id == @user.id %>
-    <a class="btn btn-outline-info" style="position: absolute; bottom: 15px; right: 15px;" href="<%= edit_timeline_path(@user) %>">Update avatar and cover</a>
-  <% end %>
-</div>
-<div class="info text-center" style="margin-top: 80px">
-  <a class="font-weight-light" style="font-size: 25px; color: #333;" href="<%= timeline_path(@user) %>"><%= @user.email %></a>
-</div>
-
-<% if current_user.id == @user.id && @post.present? %>
-  <div class="new_post text-center" style="margin: 15px 0px;">
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewPost" aria-expanded="false" aria-controls="collapseNewPost">
-      Write a new post
-    </button>
-    <div class="collapse <%= @post.errors.any? ? "show" : ""%>" id="collapseNewPost">
-      <%= render "posts/form", post: @post, user: @user %>
-    </div>
-  </div>
-<% elsif @friendship.present? %>
-  <div class="unfriend text-center" style="margin: 15px 0px;">
-    You are friends for <%= time_ago_in_words(@friendship.created_at) %> - <%= link_to 'Unfriend', delete_friend_timeline_path(@user), method: :delete, style: "color: red; opacity: 0.5;" %>
-  </div>
-<% else %>
-  <div class="add_friend text-center" style="margin: 15px 0px;">
-    <%= link_to 'Add friend', add_friend_timeline_path(@user), method: :put, class: 'btn btn-info', style: "color: #fff;" %>
-  </div>
-<% end %>
-
+<%= render "timelines/info" %>
 <div class="container" style="margin-top: 15px;">
   <% if @posts.present? %>
     <% @posts.each do |post| %>
