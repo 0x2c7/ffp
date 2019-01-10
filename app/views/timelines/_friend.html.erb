@@ -3,7 +3,7 @@
   <div class="card-body d-flex justify-content-between">
     <div class="info">
       <img style="height: 32px; width: 32px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= friend.avatar.attached? ? url_for(friend.avatar) : "" %>"/>
-      <%= friend.email %>
+      <%= link_to friend.email, timeline_path(friend) %>
     </div>
     <% unless friendship.present? %>
         <%= link_to 'Add friend', add_friend_timeline_path(friend), method: :put, class: 'btn btn-info', style: "color: #fff;" %>

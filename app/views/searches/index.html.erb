@@ -1,0 +1,14 @@
+<div class="container" style="margin-top: 15px;">
+  <h4>Search result for "<%= params[:keyword] %>"</h4>
+  <% if @users.present? %>
+    <% @users.each do |user| %>
+      <%= render "timelines/friend", friend: user %>
+    <% end %>
+  <% end %>
+  <h4>Friends you may be interested</h4>
+  <% if @suggested_users.present? %>
+    <% @suggested_users.each do |user| %>
+      <%= render "timelines/friend", friend: user %>
+    <% end %>
+  <% end %>
+</div>

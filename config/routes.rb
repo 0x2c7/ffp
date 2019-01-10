@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       delete :delete_friend
     end
   end
+
+  resources :searches, only: [:index]
 end
