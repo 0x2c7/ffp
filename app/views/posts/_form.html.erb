@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="d-flex justify-content-center" style="margin: 30px 0px;">
+    <%= form_for(post, as: post, url: create_post_timeline_path(user), html: {class: 'text-center col-md-6'}) do |f| %>
+      <%= f.text_area :content, autofocus: true, class: 'form-control', placeholder: 'How are you feeling today?', rows: 4 %>
+      <%= f.file_field :image, class: 'form-control', placeholder: "Attach an image" %>
+
+      <% if f.object.errors.any? %>
+        <div class="card border-danger" style="margin-top: 15px">
+          <div class="card-body text-danger text-left">
+            <% f.object.errors.full_messages.each do |msg| %>
+              <li>
+                <%= msg %>
+              </li>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="actions" style="margin-top: 15px">
+        <%= f.submit "Post", class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+  </div>
+</div>

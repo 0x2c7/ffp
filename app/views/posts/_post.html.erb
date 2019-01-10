@@ -1,0 +1,21 @@
+<div class="card post" style="margin-bottom: 20px;">
+  <div class="card-header d-flex justify-content-start">
+    <img style="height: 48px; width: 48px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= post.user.avatar.attached? ? url_for(post.user.avatar) : "" %>"/>
+    <div class="post_info">
+      <a class="font-weight-normal" href="<%= timeline_path(post.user) %>"><%= post.user.email %></a>
+      <div style="color: #aaa; font-size: 0.9em;"><%= time_ago_in_words(post.created_at) %></div>
+    </div>
+  </div>
+  <% if post.content.present? %>
+    <div class="card-body">
+      <p>
+      <%= post.content %>
+      </p>
+    </div>
+  <% end %>
+  <% if post.image.attached? %>
+    <div class="text-center">
+      <img class="img-fluid" src="<%= url_for(post.image) %>"/>
+    </div>
+  <% end %>
+</div>
