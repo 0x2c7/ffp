@@ -4,7 +4,7 @@
 - Rails: 5.2
 - Prepare DB and seeds:
 
-````
+```
 bundle install
 bundle exec rake db:create
 bundle exec rake db:migrate
