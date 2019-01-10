@@ -34,8 +34,8 @@
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Timeline</a>
-                <a class="dropdown-item" href="#">Personal page</a>
+                <a class="dropdown-item" href="<%= root_path %>">Home</a>
+                <a class="dropdown-item" href="<%= timeline_path(current_user) %>">Personal page</a>
                 <div class="dropdown-divider"></div>
                 <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </div>
