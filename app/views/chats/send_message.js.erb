@@ -1,0 +1,8 @@
+<% if @message.persisted? %>
+  $('#messages').html('<%= j(render("messages", messages: @messages))%>');
+  $('#newMessage').val('');
+  $(document).ready(function() {
+    $('#messages').show().animate({ scrollTop: 1000000 }, 0);
+  });
+<% else %>
+<% end %>

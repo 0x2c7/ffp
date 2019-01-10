@@ -1,16 +1,28 @@
 class ChatsController < ApplicationController
-  before_action :find_friends
-  before_action :find_friend, only: [:show]
+  before_action :get_friends, only: [:show, :index]
+  before_action :find_friend, only: [:show, :send_message]
+  before_action :get_messages, only: [:show]
 
   def index
   end
 
   def show
+    get_messages
+  end
+
+  def send_message
+    @message = current_user.messages.new
+    @message.receiver = @friend
+    @message.content = params[:message][:content]
+    @message.save
+
+    get_friends
+    get_messages
   end
 
   private
 
-  def find_friends
+  def get_friends
     sending_ids =
       Message
         .where("user_id = ?",  current_user.id)
@@ -37,5 +49,9 @@ class ChatsController < ApplicationController
     if @friend.blank?
       redirect_to chats_path, alert: "Friend not found"
     end
+  end
+
+  def get_messages
+    @messages = Message.where("(user_id = ? AND receiver_id = ?) OR (user_id = ? AND receiver_id = ?)", current_user.id, @friend.id, @friend.id, current_user.id).includes(:user, :receiver)
   end
 end

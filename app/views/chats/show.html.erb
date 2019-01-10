@@ -3,7 +3,14 @@
     <%= render "sidebar", friends: @friends, current: @friend.id %>
   </div>
   <div class="flex-grow-1" style="border-left: 1px #ddd solid;">
-    <div class="d-flex align-items-center justify-content-center" style="height: 100%; color: #777;">
+    <div class="d-flex flex-column" style="height: 100%; color: #777;">
+      <%= render "messages", messages: @messages %>
+      <%= render "input", friend: @friend %>
+      <script>
+        $(document).ready(function() {
+          $('#messages').show().animate({ scrollTop: 1000000 }, 0);
+        });
+      </script>
     </div>
   </div>
 </div>

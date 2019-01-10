@@ -1,0 +1,19 @@
+<div id="messages" class="hidden flex-grow-1" style="padding: 15px; overflow: auto;">
+  <% messages.each do |message| %>
+    <% if message.user_id == current_user.id %>
+      <div class="align-items-start d-flex justify-content-end">
+        <div class="alert alert-primary" style="display: inline-block; max-width: 60%;">
+          <%= message.content %>
+        </div>
+        <img style="height: 48px; width: 48px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= message.user.avatar.attached? ? url_for(message.user.avatar) : "" %>"/>
+      </div>
+    <% else %>
+      <div class="text-left d-flex align-items-start justify-content-start">
+        <img style="height: 48px; width: 48px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= message.user.avatar.attached? ? url_for(message.user.avatar) : "" %>"/>
+        <div class="alert alert-success" style="display: inline-block; max-width: 60%;">
+          <%= message.content %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

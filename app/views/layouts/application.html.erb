@@ -27,8 +27,8 @@
           </div>
         </div>
         <div class="right d-flex justify-content-start">
-          <%= link_to "Chat (#{online_count} online)", chats_path, class: 'btn btn-outline-primary', style: "margin-right: 15px" %>
           <% if user_signed_in? %>
+            <%= link_to "Chat (#{online_count} online)", chats_path, class: 'btn btn-outline-primary', style: "margin-right: 15px" %>
             <div class="dropdown">
               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #333;">
                 <img style="height: 32px; width: 32px; background-color: #fafafa; border-radius: 100%;" src="<%= current_user.avatar.attached? ? url_for(current_user.avatar) : "" %>"/>

@@ -1,16 +1,16 @@
 <% current ||= nil %>
 <% friends.each do |friend| %>
   <a class="card" href="<%= chat_path(friend) %>" style="border-width: 0px 0px 1px 0px; color: #333; text-decoration: none;<%= current == friend.id ? "background-color: rgba(0, 123, 255, 0.1);" : ""%>">
-    <div class="card-body d-flex align-items-center justify-content-between">
+    <div class="card-body d-flex align-items-center justify-content-start">
       <div class="info">
         <img style="height: 32px; width: 32px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= friend.avatar.attached? ? url_for(friend.avatar) : "" %>"/>
-        <%= friend.email %>
       </div>
       <div class="online">
+        <%= friend.email %>
         <% if friend.online_at.present? && friend.online_at > Time.now - 5.minutes %>
           <div class="badge badge-success">On</div>
         <% elsif friend.online_at %>
-          <div style="color: #777; font-size: 0.9em"><%= time_ago_in_words(friend.online_at) %> ago</div>
+          <div style="color: #777; font-size: 0.9em"><%= time_ago_in_words(friend.online_at) %> sgo</div>
         <% end %>
       </div>
     </div>

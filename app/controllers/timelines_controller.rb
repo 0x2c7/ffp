@@ -7,11 +7,11 @@ class TimelinesController < ApplicationController
 
   def index
     connections = (current_user.friends.map(&:id) + [current_user.id]).uniq
-    @posts = Post.where(user_id: connections).order(created_at: :desc)
+    @posts = Post.where(user_id: connections).order(created_at: :desc).includes(:user)
   end
 
   def show
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).includes(:user)
   end
 
   def edit

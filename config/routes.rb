@@ -11,5 +11,9 @@ Rails.application.routes.draw do
   end
 
   resources :searches, only: [:index]
-  resources :chats, only: [:index, :show]
+  resources :chats, only: [:index, :show] do
+    member do
+      post :send_message
+    end
+  end
 end

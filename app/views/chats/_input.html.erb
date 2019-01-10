@@ -1,0 +1,6 @@
+<%= form_for(current_user.messages.new, url: send_message_chat_path(friend), html: { method: :post }, method: :post, remote: true) do |f| %>
+  <div class="wrapper d-flex justify-content-stretch align-items-stretch">
+    <%= f.text_field :content, autofocus: true, id: 'newMessage', class: 'form-control flex-grow-1' %>
+    <%= f.submit "Send", class: 'btn btn-primary' %>
+  </div>
+<% end %>
