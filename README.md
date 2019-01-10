@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby: 2.3.3
+- Rails: 5.2
+- Prepare DB and seeds:
 
-Things you may want to cover:
+````
+bundle install
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake db:seed
+```
 
-* Ruby version
+- Start web server:
 
-* System dependencies
+```
+bundle exec rails s
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Test with 2 test users (or randomly pick in 100 test users. All of the passwords are `password`)
+  - `test@test.com`
+  - `test2@test.com`
