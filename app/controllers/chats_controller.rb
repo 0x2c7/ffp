@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
-  before_action :set_online, except: [:update_sidebar]
-  before_action :get_friends, only: [:show, :index, :update_sidebar]
+  after_action :set_online, except: [:update_sidebar, :ping, :update_sidebar_2]
+  before_action :get_friends, only: [:show, :index, :update_sidebar, :update_sidebar_2]
   before_action :find_friend, only: [:show, :send_message, :update_sidebar]
   before_action :get_messages, only: [:show]
 
@@ -10,8 +10,15 @@ class ChatsController < ApplicationController
   def update_sidebar
   end
 
+  def update_sidebar_2
+  end
+
   def show
     get_messages
+  end
+
+  def ping
+    current_user.touch(:online_at)
   end
 
   def send_message

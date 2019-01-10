@@ -12,5 +12,14 @@ $(document).ready(function() {
       }
     }
   );
+
+  setInterval(function(){
+    $('#updateSidebar').click();
+    $('#ping').click();
+  }, 30000);
+
+  setInterval(function(){
+    $('#ping').click();
+  }, 10000);
 });
 </script>

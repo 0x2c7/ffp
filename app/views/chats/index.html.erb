@@ -1,4 +1,6 @@
 <div class="d-flex align-items-stretch"style="height: 100vh; margin-top: -60px; padding-top: 60px; border-top: 1px #ddd solid;">
+  <%= button_to 'Update sidebar', update_sidebar_2_chats_path, remote: true, method: :get, style: 'display: none;', id: 'updateSidebar' %>
+  <%= button_to 'ping', ping_chats_path, remote: true, method: :get, style: 'display: none;', id: 'ping' %>
   <div id="sidebar" style="width: 400px">
     <%= render "sidebar", friends: @friends %>
   </div>
