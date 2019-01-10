@@ -1,0 +1,7 @@
+<div class="container" style="margin-top: 15px;">
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <%= render "posts/post", post: post %>
+    <% end %>
+  <% end %>
+</div>

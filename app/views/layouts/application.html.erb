@@ -29,7 +29,7 @@
         <div class="right">
           <% if user_signed_in? %>
             <div class="dropdown">
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #333;">
                 <img style="height: 32px; width: 32px; background-color: #fafafa; border-radius: 100%;" src="<%= current_user.avatar.attached? ? url_for(current_user.avatar) : "" %>"/>
                 <%= current_user.email %>
               </a>

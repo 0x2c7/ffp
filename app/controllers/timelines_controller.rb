@@ -23,6 +23,8 @@ class TimelinesController < ApplicationController
   end
 
   def index
+    connections = [current_user.id]
+    @posts = Post.where(user_id: connections)
   end
 
   def create_post
