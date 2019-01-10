@@ -10,4 +10,7 @@ class User < ApplicationRecord
 
   has_many :friendships
   has_many :friends, through: :friendships, class_name: 'User', foreign_key: :user_id
+
+  has_many :messages
+  has_many :received_messages, class_name: 'Message', foreign_key: :receiver_id
 end

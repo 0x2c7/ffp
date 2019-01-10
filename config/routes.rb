@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   end
 
   resources :searches, only: [:index]
+  resources :chats, only: [:index, :show]
 end
