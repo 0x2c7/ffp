@@ -1,5 +1,6 @@
 <div class="d-flex align-items-stretch"style="height: 100vh; margin-top: -60px; padding-top: 60px; border-top: 1px #ddd solid;">
-  <div style="width: 400px">
+  <%= button_to 'Update sidebar', update_sidebar_chat_path(@friend), remote: true, method: :get, style: 'display: none;', id: 'updateSidebar' %>
+  <div id="sidebar" style="width: 400px">
     <%= render "sidebar", friends: @friends, current: @friend.id %>
   </div>
   <div class="flex-grow-1" style="border-left: 1px #ddd solid;">
@@ -15,3 +16,4 @@
   </div>
 </div>
 <%= render "channel" %>
+<%= render "online" %>

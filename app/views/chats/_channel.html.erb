@@ -3,7 +3,8 @@ $(document).ready(function() {
   App.cable.subscriptions.create(
     {
       channel: "ApplicationCable::ChatChannel",
-      user_id: "<%= current_user.id %>"
+      user_id: "<%= current_user.id %>",
+      receiver_id: "<%= @friend.id %>"
     },
     {
       received: function(data) {

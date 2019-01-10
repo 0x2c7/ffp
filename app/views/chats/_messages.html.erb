@@ -7,7 +7,7 @@
         <div class="alert alert-primary" style="display: inline-block; max-width: 60%;">
           <%= message.content %>
         </div>
-        <img style="height: 48px; width: 48px; background-color: #fafafa; border-radius: 100%; margin-right: 10px;" src="<%= message.user.avatar.attached? ? url_for(message.user.avatar) : "" %>"/>
+        <img style="height: 48px; width: 48px; background-color: #fafafa; border-radius: 100%; margin-left: 10px;" src="<%= message.user.avatar.attached? ? url_for(message.user.avatar) : "" %>"/>
       </div>
     <% else %>
       <div class="text-left d-flex align-items-start justify-content-start">

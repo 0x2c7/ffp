@@ -1,9 +1,12 @@
 class ChatsController < ApplicationController
-  before_action :get_friends, only: [:show, :index]
-  before_action :find_friend, only: [:show, :send_message]
+  before_action :get_friends, only: [:show, :index, :update_sidebar]
+  before_action :find_friend, only: [:show, :send_message, :update_sidebar]
   before_action :get_messages, only: [:show]
 
   def index
+  end
+
+  def update_sidebar
   end
 
   def show
@@ -35,10 +38,12 @@ class ChatsController < ApplicationController
           current_user: @friend
         }
       )
-      ActionCable.server.broadcast("chat_#{current_user.id}", messages: senderMessages)
-      ActionCable.server.broadcast("chat_#{@friend.id}", messages: receiverMessages)
+      ActionCable.server.broadcast("chat_#{current_user.id}_#{@friend.id}", messages: senderMessages)
+      ActionCable.server.broadcast("chat_#{@friend.id}_#{current_user.id}", messages: receiverMessages)
       current_user.touch(:online_at)
-      @friend.touch(:online_at)
+      (current_user.friend_ids + [current_user.id]).each do |friend_id|
+        ActionCable.server.broadcast("online_#{friend_id}", {})
+      end
     end
   end
 

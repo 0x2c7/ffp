@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :searches, only: [:index]
   resources :chats, only: [:index, :show] do
     member do
+      get :update_sidebar
       post :send_message
     end
   end
