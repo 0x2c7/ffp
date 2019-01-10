@@ -3,6 +3,11 @@ class TimelinesController < ApplicationController
   before_action :check_same_user, only: [:edit, :update, :create_post]
   before_action :new_post, only: [:show, :create_post]
 
+  def index
+    connections = (current_user.friends.map(&:id) + [current_user.id]).uniq
+    @posts = Post.where(user_id: connections).order(created_at: :desc)
+  end
+
   def show
     @posts = @user.posts.order(created_at: :desc)
   end
@@ -20,11 +25,6 @@ class TimelinesController < ApplicationController
     end
 
     redirect_to timeline_path(@user)
-  end
-
-  def index
-    connections = [current_user.id]
-    @posts = Post.where(user_id: connections)
   end
 
   def create_post
