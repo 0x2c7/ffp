@@ -17,3 +17,10 @@
 </div>
 <%= render "channel" %>
 <%= render "online" %>
+<script>
+$(document).ready(function() {
+  setInterval(function(){
+    $('#updateSidebar').click();
+  }, 30000);
+});
+</script>

@@ -1,4 +1,5 @@
 class ChatsController < ApplicationController
+  before_action :set_online, except: [:update_sidebar]
   before_action :get_friends, only: [:show, :index, :update_sidebar]
   before_action :find_friend, only: [:show, :send_message, :update_sidebar]
   before_action :get_messages, only: [:show]
@@ -40,10 +41,6 @@ class ChatsController < ApplicationController
       )
       ActionCable.server.broadcast("chat_#{current_user.id}_#{@friend.id}", messages: senderMessages)
       ActionCable.server.broadcast("chat_#{@friend.id}_#{current_user.id}", messages: receiverMessages)
-      current_user.touch(:online_at)
-      (current_user.friend_ids + [current_user.id]).each do |friend_id|
-        ActionCable.server.broadcast("online_#{friend_id}", {})
-      end
     end
   end
 
@@ -80,5 +77,12 @@ class ChatsController < ApplicationController
 
   def get_messages
     @messages = Message.where("(user_id = ? AND receiver_id = ?) OR (user_id = ? AND receiver_id = ?)", current_user.id, @friend.id, @friend.id, current_user.id).order(created_at: :asc).includes(:user, :receiver)
+  end
+
+  def set_online
+    current_user.touch(:online_at)
+    (current_user.friend_ids + [current_user.id]).each do |friend_id|
+      ActionCable.server.broadcast("online_#{friend_id}", {})
+    end
   end
 end
