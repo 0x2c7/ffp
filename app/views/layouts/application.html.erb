@@ -7,11 +7,48 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container justify-content-between">
+        <div class="left">
+          <div class="d-flex justify-content-start">
+            <a href="<%= root_path %>" class="navbar-brand">Ffp Network</a>
+            <% if user_signed_in? %>
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            <% end %>
+          </div>
+        </div>
+        <div class="right">
+          <% if user_signed_in? %>
+          <% else %>
+            <a href="<%= new_user_session_path %>" class="btn btn-primary">
+              Log in
+            </a>
+            <a href="<%= new_user_registration_path %>" class="btn btn-outline-primary">
+              Sign up
+            </a>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <% if alert %>
+        <div class="alert alert-warning text-center alert-dismissible fade show" role="alert" style="margin-top: 15px;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <%= alert %>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body
 </html>

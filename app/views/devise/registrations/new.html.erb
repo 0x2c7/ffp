@@ -1,29 +1,25 @@
-<h2>Sign up</h2>
+<div class="d-flex justify-content-center">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'text-center col-md-6'}) do |f| %>
+    <h1 class="h3 font-weight-light" style="margin: 30px 0px;">Sign up</h1>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email address' %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: 'Password', style: 'margin-top: 7px;' %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: 'Confirm Password', style: 'margin-top: 7px;' %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <% if f.object.errors.any? %>
+      <div class="card border-danger" style="margin-top: 15px">
+        <div class="card-body text-danger text-left">
+          <% f.object.errors.full_messages.each do |msg| %>
+            <li>
+            <%= msg %>
+            </li>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <div class="actions" style="margin-top: 15px">
+      <%= f.submit "Sign up", class: 'btn btn-primary btn-block' %>
+    </div>
+  <% end %>
+</div>
