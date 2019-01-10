@@ -14,10 +14,32 @@ class ChatsController < ApplicationController
     @message = current_user.messages.new
     @message.receiver = @friend
     @message.content = params[:message][:content]
-    @message.save
 
     get_friends
     get_messages
+
+    if @message.content.present? && @message.save
+      senderMessages = ChatsController.render(
+        template: 'chats/_messages',
+        layout: false,
+        assigns: {
+          messages: @messages,
+          current_user: current_user
+        }
+      )
+      receiverMessages = ChatsController.render(
+        template: 'chats/_messages',
+        layout: false,
+        assigns: {
+          messages: @messages,
+          current_user: @friend
+        }
+      )
+      ActionCable.server.broadcast("chat_#{current_user.id}", messages: senderMessages)
+      ActionCable.server.broadcast("chat_#{@friend.id}", messages: receiverMessages)
+      current_user.touch(:online_at)
+      @friend.touch(:online_at)
+    end
   end
 
   private
@@ -52,6 +74,6 @@ class ChatsController < ApplicationController
   end
 
   def get_messages
-    @messages = Message.where("(user_id = ? AND receiver_id = ?) OR (user_id = ? AND receiver_id = ?)", current_user.id, @friend.id, @friend.id, current_user.id).includes(:user, :receiver)
+    @messages = Message.where("(user_id = ? AND receiver_id = ?) OR (user_id = ? AND receiver_id = ?)", current_user.id, @friend.id, @friend.id, current_user.id).order(created_at: :asc).includes(:user, :receiver)
   end
 end

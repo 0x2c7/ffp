@@ -1,3 +1,5 @@
+<% messages ||= @messages %>
+<% current_user ||= @current_user %>
 <div id="messages" class="hidden flex-grow-1" style="padding: 15px; overflow: auto;">
   <% messages.each do |message| %>
     <% if message.user_id == current_user.id %>

@@ -1,0 +1,16 @@
+<script>
+$(document).ready(function() {
+  App.cable.subscriptions.create(
+    {
+      channel: "ApplicationCable::ChatChannel",
+      user_id: "<%= current_user.id %>"
+    },
+    {
+      received: function(data) {
+        $('#messages').replaceWith(data.messages);
+        $('#messages').show().animate({ scrollTop: 1000000 }, 0);
+      }
+    }
+  );
+});
+</script>
